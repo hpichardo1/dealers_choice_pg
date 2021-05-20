@@ -5,7 +5,6 @@ const client = require('./db')
 
 app.get('/', async(req, res, next)=> {
   const data = await client.People.findAll()
-  console.log(data)
 
   res.send(
     `<!DOCTYPE html>
@@ -18,6 +17,7 @@ app.get('/', async(req, res, next)=> {
       <style> 
       h1 {
         color: dodgerblue;
+        font-size: 50px
       }
       </style>
     </head>
@@ -36,8 +36,7 @@ app.get('/', async(req, res, next)=> {
 app.get('/:id', async(req, res, next) =>{
  
   const user = await client.People.findByPk(req.params.id*1)
-  
-  console.log(user.dataValues)  
+ 
   res.send(
       `<!DOCTYPE html>
     <html lang="en">
@@ -49,16 +48,16 @@ app.get('/:id', async(req, res, next) =>{
       <style> 
       h1 {
         color: dodgerblue;
+        font-size: 34px
       }
       </style>
     </head>
     <body>
     
     <ul>
-   <h1> <a href = />${user.dataValues.name}</a></h1>
-  <li>  ${user.dataValues.league} </li>
-  <li>  ${user.dataValues.position} </li>
-   
+    <h1> <a href = />${user.dataValues.name}</a></h1>
+    <li>  ${user.dataValues.league} </li>
+    <li>  ${user.dataValues.position} </li>
     </ul>
       
     </body>
@@ -69,7 +68,7 @@ app.get('/:id', async(req, res, next) =>{
 
 const  PORT  = 3000
 
-app.listen(PORT, async()=> {
+app.listen(PORT, async ()=> {
   await client.syncAndSeed() 
   console.log(`Listening on port ${PORT}`)
 });
